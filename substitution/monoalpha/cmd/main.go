@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -75,6 +76,8 @@ func dec() {
 	fmt.Println(plaintext)
 }
 
+var affineKeyRe = regexp.MustCompile(`^(-?\d+),(-?\d+)$`)
+
 func keyFromInput(input string) monoalpha.Key {
 	if input == "" {
 		return monoalpha.NewRandomKey()
@@ -84,6 +87,11 @@ func keyFromInput(input string) monoalpha.Key {
 	}
 	if shift, err := strconv.Atoi(input); err == nil {
 		return monoalpha.NewCaesarKey(shift)
+	}
+	if match := affineKeyRe.FindStringSubmatch(input); len(match) > 0 {
+		a, _ := strconv.Atoi(match[1])
+		b, _ := strconv.Atoi(match[2])
+		return monoalpha.NewAffineKey(a, b)
 	}
 	return monoalpha.NewKeyFromKeyword(input)
 }

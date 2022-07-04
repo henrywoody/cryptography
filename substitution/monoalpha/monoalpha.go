@@ -5,7 +5,10 @@ import (
 	"strings"
 )
 
-const alphabetLength = 26
+const (
+	alphabet       = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	alphabetLength = 26
+)
 
 // Key for subsitution ciphers.
 type Key map[rune]rune
