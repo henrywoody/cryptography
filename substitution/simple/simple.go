@@ -38,8 +38,8 @@ func NewRandomKey() Key {
 }
 
 // NewKeyFromKeyword creates and returns a key using the given keyword and
-// filling in the remaning characters in alphabetical order. The key must not
-// contain duplicate characters.
+// filling in the remaning characters in alphabetical order. The keyword must
+// not contain duplicate characters.
 func NewKeyFromKeyword(keyword string) Key {
 	keywordChars := []rune(strings.ToUpper(keyword))
 	key := make(Key, alphabetLength)
@@ -85,12 +85,13 @@ func (k Key) String() string {
 // ciphertext message is given, the key must be the inverse of the encryption
 // key and the result is plaintext.
 //
-// Capitalization and punctuation are preserved. For additional security, it is
+// Capitalization and punctuation are preserved. For improved security, it is
 // recommended to use a single casing (upper or lower), and remove all spaces
 // and punctuation.
 func Substitute(key Key, message string) string {
-	result := make([]rune, 0, len(message))
-	for _, c := range []rune(message) {
+	messageRunes := []rune(message)
+	result := make([]rune, 0, len(messageRunes))
+	for _, c := range messageRunes {
 		upperC := []rune(strings.ToUpper(string(c)))[0]
 		isLower := c != upperC
 

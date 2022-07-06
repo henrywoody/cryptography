@@ -55,6 +55,11 @@ func TestSubstitute(t *testing.T) {
 			ExpectedResult: "Hello",
 		},
 		{
+			Keyword:        "MXPVEUFBKYHQDTRJICOSZGAWNL",
+			Message:        "HELLO WORLD",
+			ExpectedResult: "BEQQR ARCQV",
+		},
+		{
 			Keyword:        "ZEBRAS",
 			Message:        "FLEE AT ONCE. WE ARE DISCOVERED!",
 			ExpectedResult: "SIAA ZQ LKBA. VA ZOA RFPBLUAOAR!",

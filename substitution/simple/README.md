@@ -59,4 +59,8 @@ Using a keyword to generate a ciphertext alphabet reduces the entropy of the key
 ## Further Reading
 
 - http://abstract.ups.edu/aata/section-private-key-crypt.html
+- https://en.wikipedia.org/wiki/Affine_cipher
+- https://en.wikipedia.org/wiki/Atbash
+- https://en.wikipedia.org/wiki/Caesar_cipher
+- https://en.wikipedia.org/wiki/ROT13
 - https://en.wikipedia.org/wiki/Substitution_cipher
