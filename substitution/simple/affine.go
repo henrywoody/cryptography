@@ -1,4 +1,4 @@
-package monoalpha
+package simple
 
 // NewAffineKey creates and returns a key for an Affine cipher. Note that the
 // value of a must be coprime with the length of the alphabet (26), and

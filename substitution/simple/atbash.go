@@ -1,4 +1,4 @@
-package monoalpha
+package simple
 
 // NewAtbashKey creates and returns the key for the Atbash cipher (reversed
 // alphabet).

@@ -1,9 +1,9 @@
-package monoalpha_test
+package simple_test
 
 import (
 	"testing"
 
-	"github.com/henrywoody/cryptography/substitution/monoalpha"
+	"github.com/henrywoody/cryptography/substitution/simple"
 )
 
 // ZEBRAS keyword examples from Wikipedia: https://en.wikipedia.org/wiki/Substitution_cipher
@@ -32,7 +32,7 @@ func TestNewKeyFromKeyword(t *testing.T) {
 	}
 
 	for _, testCase := range testTable {
-		key := monoalpha.NewKeyFromKeyword(testCase.Keyword)
+		key := simple.NewKeyFromKeyword(testCase.Keyword)
 		keyString := key.String()
 		if keyString != testCase.ExpectedKeyString {
 			t.Errorf(
@@ -72,8 +72,8 @@ func TestSubstitute(t *testing.T) {
 	}
 
 	for _, testCase := range testTable {
-		key := monoalpha.NewKeyFromKeyword(testCase.Keyword)
-		result := monoalpha.Substitute(key, testCase.Message)
+		key := simple.NewKeyFromKeyword(testCase.Keyword)
+		result := simple.Substitute(key, testCase.Message)
 		if result != testCase.ExpectedResult {
 			t.Errorf(
 				"Expected result for keyword '%s' and message '%s' to be '%s', received '%s'",

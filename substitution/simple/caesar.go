@@ -1,4 +1,4 @@
-package monoalpha
+package simple
 
 // NewAtbashKey creates and returns the key for the ROT13 cipher (Caesar with a
 // shift of 13).

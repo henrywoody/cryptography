@@ -1,4 +1,4 @@
-package monoalpha
+package simple
 
 import (
 	"math/rand"

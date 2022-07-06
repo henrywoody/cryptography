@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/henrywoody/cryptography/substitution/monoalpha"
+	"github.com/henrywoody/cryptography/substitution/simple"
 )
 
 func init() {
@@ -56,7 +56,7 @@ func enc() {
 		message = os.Args[3]
 	}
 
-	ciphertext := monoalpha.Substitute(key, message)
+	ciphertext := simple.Substitute(key, message)
 	fmt.Println(ciphertext)
 }
 
@@ -72,26 +72,26 @@ func dec() {
 		message = os.Args[3]
 	}
 
-	plaintext := monoalpha.Substitute(key, message)
+	plaintext := simple.Substitute(key, message)
 	fmt.Println(plaintext)
 }
 
 var affineKeyRe = regexp.MustCompile(`^(-?\d+),(-?\d+)$`)
 
-func keyFromInput(input string) monoalpha.Key {
+func keyFromInput(input string) simple.Key {
 	if input == "" {
-		return monoalpha.NewRandomKey()
+		return simple.NewRandomKey()
 	}
 	if strings.ToLower(input) == "atbash" {
-		return monoalpha.NewAtbashKey()
+		return simple.NewAtbashKey()
 	}
 	if shift, err := strconv.Atoi(input); err == nil {
-		return monoalpha.NewCaesarKey(shift)
+		return simple.NewCaesarKey(shift)
 	}
 	if match := affineKeyRe.FindStringSubmatch(input); len(match) > 0 {
 		a, _ := strconv.Atoi(match[1])
 		b, _ := strconv.Atoi(match[2])
-		return monoalpha.NewAffineKey(a, b)
+		return simple.NewAffineKey(a, b)
 	}
-	return monoalpha.NewKeyFromKeyword(input)
+	return simple.NewKeyFromKeyword(input)
 }

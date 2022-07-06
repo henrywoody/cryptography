@@ -1,6 +1,8 @@
-# Monoalphabetic Substitution
+# Simple Substitution
 
-Monoalphabetic substitution ciphers use two alphabets, a plaintext alphabet and a ciphertext alphabet. Each individual character from the plaintext alphabet is mapped to a character in the ciphertext alphabet. The two alphabets are typically composed of the same characters (e.g. the Latin alphabet) but in differing orders.
+This package covers simple (monoalphabetic and monographic) substitution ciphers. Throughout this file, simple substitution ciphers are referred to as monoalphabetic substitution ciphers.
+
+Monoalphabetic substitution ciphers use two alphabets, a plaintext alphabet and a ciphertext alphabet. In a monographic cipher, each individual character from the plaintext alphabet is mapped to a character in the ciphertext alphabet. The two alphabets are typically composed of the same characters (e.g. the Latin alphabet) but in differing orders.
 
 ## Example
 
