@@ -17,74 +17,95 @@ func init() {
 }
 
 func main() {
+	cmd := &Command{}
+	cmd.parseArgs()
+	cmd.run()
+}
+
+type Command struct {
+	randomKeyLength  int
+	vigenereKeyword  string
+	gronsfeldKeyword string
+	keywords         string
+	message          string
+}
+
+func (c *Command) run() {
 	if len(os.Args) < 2 {
 		log.Fatal("Must specify a command argument")
-		return
 	}
 
-	switch c := os.Args[1]; c {
+	switch cmdName := os.Args[1]; cmdName {
 	case "key":
-		key()
+		c.key()
 	case "enc":
-		enc()
+		c.enc()
 	case "dec":
-		dec()
+		c.dec()
 	default:
-		log.Fatalf("Command '%s' not recognized\n", c)
+		log.Fatalf("Command '%s' not recognized\n", cmdName)
 	}
 }
 
-func key() {
-	input := ""
+func (c *Command) parseArgs() {
+	keyType := ""
 	if len(os.Args) >= 3 {
-		input = os.Args[2]
+		keyType = os.Args[2]
 	}
-	key := keyFromInput(input)
+
+	keyArg := ""
+	if len(os.Args) >= 4 {
+		keyArg = os.Args[3]
+	}
+
+	c.message = ""
+	if len(os.Args) >= 5 {
+		c.message = os.Args[4]
+	}
+
+	switch keyType {
+	case "l":
+		c.randomKeyLength, _ = strconv.Atoi(keyArg)
+	case "v":
+		c.vigenereKeyword = keyArg
+	case "g":
+		c.gronsfeldKeyword = keyArg
+	case "k":
+		c.keywords = keyArg
+	}
+}
+
+func (c *Command) key() {
+	key := c.keyFromArgs()
 	fmt.Println(key)
 }
 
-func enc() {
-	keyInput := ""
-	if len(os.Args) >= 3 {
-		keyInput = os.Args[2]
-	}
-	key := keyFromInput(keyInput)
+func (c *Command) enc() {
+	key := c.keyFromArgs()
 
-	message := ""
-	if len(os.Args) >= 4 {
-		message = os.Args[3]
-	}
-
-	ciphertext := polyalphabetic.Substitute(key, message)
+	ciphertext := polyalphabetic.Substitute(key, c.message)
 	fmt.Println(ciphertext)
 }
 
-func dec() {
-	keyInput := ""
-	if len(os.Args) >= 3 {
-		keyInput = os.Args[2]
-	}
-	key := keyFromInput(keyInput).Inverse()
+func (c *Command) dec() {
+	key := c.keyFromArgs().Inverse()
 
-	message := ""
-	if len(os.Args) >= 4 {
-		message = os.Args[3]
-	}
-
-	plaintext := polyalphabetic.Substitute(key, message)
+	plaintext := polyalphabetic.Substitute(key, c.message)
 	fmt.Println(plaintext)
 }
 
-func keyFromInput(input string) polyalphabetic.Key {
-	if input == "" {
-		return polyalphabetic.NewRandomKey(3)
+func (c *Command) keyFromArgs() polyalphabetic.Key {
+	if c.randomKeyLength > 0 {
+		return polyalphabetic.NewRandomKey(c.randomKeyLength)
 	}
-	if length, err := strconv.Atoi(input); err == nil {
-		return polyalphabetic.NewRandomKey(length)
+	if c.vigenereKeyword != "" {
+		return polyalphabetic.NewVigenereKey(c.vigenereKeyword)
 	}
-	keywords := strings.Split(input, ",")
-	if len(keywords) == 1 {
-		return polyalphabetic.NewVigenereKey(keywords[0])
+	if c.gronsfeldKeyword != "" {
+		return polyalphabetic.NewGronsfeldKey(c.gronsfeldKeyword)
 	}
-	return polyalphabetic.NewKeyFromKeywords(keywords...)
+	if c.keywords != "" {
+		return polyalphabetic.NewKeyFromKeywords(strings.Split(c.keywords, ",")...)
+	}
+	return polyalphabetic.NewRandomKey(3)
 }

@@ -24,6 +24,8 @@ Some cases of polyalphabetic substitution have special names depending on the ke
 
 A Vigenère cipher is a polyalphabetic substitution cipher in which the key is a set of Caesar ciphertext alphabets (each shifted by some distance).
 
+A Gronsfeld cipher is similar to a Vigenère cipher but uses a numeric key instead of an alphabetic key. This restricts the ciphertext alphabet space from containing 26 possibilities to 10, but encourages harder to guess keys since the values are entirely numeric (instead of alphabetic, which encourages words as keys, which are less random).
+
 ## Keys
 
 The key for a polyalphabetic substitution cipher can be represented by a list [monoalphabetic substitution keys](../simple/README.md#Keys).

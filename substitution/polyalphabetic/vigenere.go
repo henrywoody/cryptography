@@ -12,7 +12,8 @@ import (
 //
 // The keyword is used to pick the number of ciphertext alphabets (by the length
 // of the keyword) and the offset for each (by the distance of each character in
-// the keyword from 'A').
+// the keyword from 'A'). The keyword is composed of characters from the letters
+// A-Z.
 func NewVigenereKey(keyword string) Key {
 	upperKeywordRunes := []rune(strings.ToUpper(keyword))
 	key := make(Key, len(upperKeywordRunes))
